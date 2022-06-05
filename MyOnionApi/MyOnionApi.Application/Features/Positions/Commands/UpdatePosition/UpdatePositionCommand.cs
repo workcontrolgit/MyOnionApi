@@ -11,9 +11,10 @@ namespace MyOnionApi.Application.Features.Positions.Commands.UpdatePosition
     public class UpdatePositionCommand : IRequest<Response<Guid>>
     {
         public Guid Id { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public decimal Salary { get; set; }
+        public string positionTitle { get; set; }
+        public string positionDescription { get; set; }
+        public string positionNumber { get; set; }
+        public decimal positionSalary { get; set; }
 
         public class UpdatePositionCommandHandler : IRequestHandler<UpdatePositionCommand, Response<Guid>>
         {
@@ -34,9 +35,10 @@ namespace MyOnionApi.Application.Features.Positions.Commands.UpdatePosition
                 }
                 else
                 {
-                    position.PositionTitle = command.Title;
-                    position.PositionSalary = command.Salary;
-                    position.PositionDescription = command.Description;
+                    position.PositionTitle = command.positionTitle;
+                    position.PositionSalary = command.positionSalary;
+                    position.PositionDescription = command.positionDescription;
+                    position.PositionNumber = command.positionNumber;
                     await _positionRepository.UpdateAsync(position);
                     return new Response<Guid>(position.Id);
                 }
